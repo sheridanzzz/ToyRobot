@@ -1,0 +1,53 @@
+name: .NET Console CI/CD
+
+# This workflow is triggered on pushes and pull requests to the main branch.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # Specifies that the job runs on the latest version of macOS.
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Code
+      # Uses the checkout action to clone your repository code to the GitHub Actions runner.
+      # This is necessary to access the project files on the runner.
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 7
+      # Sets up a .NET environment with .NET 7.
+      # This step ensures that the runner has the correct version of .NET installed to build and test your project.
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '7.0.315'
+        
+    - name: Restore Dependencies
+      # Restores the NuGet packages required by the project.
+      # This is crucial for resolving all dependencies that your project needs before building and testing.
+      run: dotnet restore
+
+    - name: Build
+      # Builds the project using the Debug configuration.
+      # This step compiles the code and checks for compilation errors.
+      run: dotnet build --no-restore --configuration Debug
+
+    - name: Test
+      # Runs tests without rebuilding the project.
+      # This step uses the compiled binaries to run tests, ensuring that the code behaves as expected.
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Publish
+      # Publish the application to a folder for deployment or distribution.
+      # This step packages the application into a deployable format, ready for deployment.
+      run: dotnet publish ./ToyRobot/ToyRobot.csproj --configuration Release --output ./publish
+
+    - name: Upload Artifacts
+      # Uploads the published application as an artifact, which can be used in subsequent steps or stored.
+      uses: actions/upload-artifact@v3
+      with:
+        name: Published App
+        path: ./publish
