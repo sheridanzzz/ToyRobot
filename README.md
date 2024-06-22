@@ -11,8 +11,9 @@ Before running the ToyRobot application, ensure you have the following installed
 
 First, clone the ToyRobot repository to your local machine using Git. Open your terminal and run the following command:
 
-git clone https://github.com/sheridanzzz/ToyRobot.git
-cd ToyRobot
+`git clone https://github.com/sheridanzzz/ToyRobot.git`
+
+`cd ToyRobot`
 
 
 This command clones the repository and changes the directory to the project's root folder.
@@ -21,7 +22,7 @@ This command clones the repository and changes the directory to the project's ro
 
 To build the application, execute the following command in the terminal from the project root directory:
 
-dotnet build
+`dotnet build`
 
 This command compiles the application and checks for any compile-time errors.
 
@@ -30,7 +31,7 @@ This command compiles the application and checks for any compile-time errors.
 
 After building the application, you can run it using the following command:
 
-dotnet run --project ToyRobot
+`dotnet run --project ToyRobot`
 
 
 This command runs the application. Follow any on-screen prompts or instructions to interact with the ToyRobot simulation.
