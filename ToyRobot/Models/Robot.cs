@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToyRobot.Models
+﻿namespace ToyRobot.Models
 {
     // The Robot class represents a robot moving on a grid.
     public class Robot

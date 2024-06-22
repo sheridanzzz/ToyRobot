@@ -1,5 +1,4 @@
-﻿using System;
-using ToyRobot.Models;
+﻿using ToyRobot.Models;
 
 namespace ToyRobot.Services
 {
@@ -8,12 +7,12 @@ namespace ToyRobot.Services
     {
         // Publicly accessible Robot property to allow state inspection in tests and other classes.
         public Robot Robot { get; private set; }
-        private Table table;
+        private Table _table;
 
         // Constructor initializes the CommandProcessor with a specific table.
         public CommandProcessor(Table table)
         {
-            this.table = table;
+            this._table = table;
         }
 
         // Processes a string command and performs actions on the Robot based on the command.
@@ -27,13 +26,13 @@ namespace ToyRobot.Services
                     int x = int.Parse(position[0]);
                     int y = int.Parse(position[1]);
                     string facing = position[2];
-                    if (table.IsValidPosition(x, y))
+                    if (_table.IsValidPosition(x, y))
                     {
                         Robot = new Robot(x, y, facing);  // Initialize Robot at specified position and facing.
                     }
                     break;
                 case "MOVE":
-                    if (Robot != null && table.IsValidPosition(Robot.X, Robot.Y))
+                    if (Robot != null && _table.IsValidPosition(Robot.X, Robot.Y))
                     {
                         Robot.Move();  // Command the robot to move in its current facing direction.
                     }

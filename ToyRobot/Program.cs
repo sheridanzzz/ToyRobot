@@ -1,7 +1,6 @@
 ﻿using ToyRobot.Models;
 using ToyRobot.Services;
 
-
 class Program
 {
     static void Main(string[] args)

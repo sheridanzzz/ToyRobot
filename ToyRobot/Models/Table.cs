@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToyRobot.Models
+﻿namespace ToyRobot.Models
 {
     // The Table class represents the tabletop environment where the robot moves.
     public class Table
