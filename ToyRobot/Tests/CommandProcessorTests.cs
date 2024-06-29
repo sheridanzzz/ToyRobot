@@ -64,6 +64,27 @@ namespace ToyRobot.Tests
                 ClassicAssert.AreEqual("1,2,EAST", sw.ToString().Trim());
             }
         }
+
+        // Test to verify that invalid PLACE commands are ignored.
+        [Test]
+        public void ProcessCommand_Place_InvalidPosition_IgnoresCommand()
+        {
+            // Act
+            _processor.ProcessCommand("PLACE 5,5,NORTH");
+
+            // Assert
+            ClassicAssert.IsNull(_processor.Robot);
+        }
+
+        // Test to verify that invalid commands are ignored.
+        [Test]
+        public void ProcessCommand_InvalidCommand_IgnoresCommand()
+        {
+            // Act
+            _processor.ProcessCommand("INVALID COMMAND");
+
+            // Assert
+            ClassicAssert.IsNull(_processor.Robot);
+        }
     }
 }
-

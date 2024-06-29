@@ -22,19 +22,27 @@ namespace ToyRobot.Services
             switch (parts[0])
             {
                 case "PLACE":
-                    var position = parts[1].Split(',');
-                    int x = int.Parse(position[0]);
-                    int y = int.Parse(position[1]);
-                    string facing = position[2];
-                    if (_table.IsValidPosition(x, y))
+                    if (parts.Length == 2)
                     {
-                        Robot = new Robot(x, y, facing);  // Initialize Robot at specified position and facing.
+                        var position = parts[1].Split(',');
+                        if (position.Length == 3 &&
+                            int.TryParse(position[0], out int x) &&
+                            int.TryParse(position[1], out int y) &&
+                            IsValidFacing(position[2]) &&
+                            _table.IsValidPosition(x, y))
+                        {
+                            Robot = new Robot(x, y, position[2]);  // Initialize Robot at specified position and facing.
+                        }
                     }
                     break;
                 case "MOVE":
-                    if (Robot != null && _table.IsValidPosition(Robot.X, Robot.Y))
+                    if (Robot != null)
                     {
-                        Robot.Move();  // Command the robot to move in its current facing direction.
+                        var newPosition = Robot.GetNextPosition();
+                        if (_table.IsValidPosition(newPosition.X, newPosition.Y))
+                        {
+                            Robot.Move();  // Command the robot to move in its current facing direction.
+                        }
                     }
                     break;
                 case "LEFT":
@@ -51,6 +59,10 @@ namespace ToyRobot.Services
                     break;
             }
         }
+
+        private bool IsValidFacing(string facing)
+        {
+            return facing == "NORTH" || facing == "SOUTH" || facing == "EAST" || facing == "WEST";
+        }
     }
 }
-

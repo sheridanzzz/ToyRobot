@@ -19,21 +19,31 @@
         // Move method to update the robot's position based on its current facing.
         public void Move()
         {
+            var nextPosition = GetNextPosition();
+            X = nextPosition.X;
+            Y = nextPosition.Y;
+        }
+
+        // Get the next position based on the current facing direction.
+        public (int X, int Y) GetNextPosition()
+        {
+            int newX = X, newY = Y;
             switch (Facing)
             {
                 case "NORTH":
-                    Y += 1; // Move the robot one unit north.
+                    newY += 1;
                     break;
                 case "SOUTH":
-                    Y -= 1; // Move the robot one unit south.
+                    newY -= 1;
                     break;
                 case "EAST":
-                    X += 1; // Move the robot one unit east.
+                    newX += 1;
                     break;
                 case "WEST":
-                    X -= 1; // Move the robot one unit west.
+                    newX -= 1;
                     break;
             }
+            return (newX, newY);
         }
 
         // Left method to rotate the robot 90 degrees to the left.
@@ -41,10 +51,10 @@
         {
             Facing = Facing switch
             {
-                "NORTH" => "WEST", // North to West
-                "WEST" => "SOUTH", // West to South
-                "SOUTH" => "EAST", // South to East
-                "EAST" => "NORTH", // East to North
+                "NORTH" => "WEST",
+                "WEST" => "SOUTH",
+                "SOUTH" => "EAST",
+                "EAST" => "NORTH",
                 _ => Facing
             };
         }
@@ -54,10 +64,10 @@
         {
             Facing = Facing switch
             {
-                "NORTH" => "EAST", // North to East
-                "EAST" => "SOUTH", // East to South
-                "SOUTH" => "WEST", // South to West
-                "WEST" => "NORTH", // West to North
+                "NORTH" => "EAST",
+                "EAST" => "SOUTH",
+                "SOUTH" => "WEST",
+                "WEST" => "NORTH",
                 _ => Facing
             };
         }
@@ -69,4 +79,3 @@
         }
     }
 }
-
